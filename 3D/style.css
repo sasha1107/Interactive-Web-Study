@@ -27,7 +27,6 @@ main {
 .loading {
     width: 30px;
     height: 30px;
-    background: url(./img/loading.svg) cover;
 }
 .door {
     position: absolute;
@@ -96,6 +95,8 @@ main {
     margin: 0 auto;
     transform: rotateY(0deg);
     transition: .7s;
+
+    /* 익스플로러 미지원 */
     transform-style: preserve-3d;
 }
 .card-side {
@@ -109,7 +110,14 @@ main {
     height: 100%;
     border-radius: 0.2em;
     font-size: 2rem;
+    /* vendor prefix 붙은 속성 먼저 */
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    /* 맨 마지막에 표준 속성 */
     backface-visibility: hidden;
+    transform: rotateY(0deg);
+    transition: .7s;
 }
 .card-side-front {
     background-size: cover;
@@ -124,28 +132,4 @@ main {
 }
 .card:hover {
     transform: rotateY(-180deg);
-}
-
-
-@keyframes ldio-7ah74gfq78m {
-    0% { transform: translate(-50%,-50%) rotate(0deg); }
-    100% { transform: translate(-50%,-50%) rotate(360deg); }
-}
-.ldio-7ah74gfq78m div {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border: 5px solid #e3e3e3;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: ldio-7ah74gfq78m 1s linear infinite;
-    /* top: 50px; */
-    /* left: 50px */
-}
-.loadingio-spinner-rolling-ihvuzwg9zf {
-    /* width: 50px; */
-    /* height: 50px; */
-    display: inline-block;
-    overflow: hidden;
-    background: none;
 }
