@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="inside">
+            카드 까는 중 . . 
+        </div>
+        <div class="door">
+            &nbsp ◎
+        </div>
+    </main>
+    <div class="cont-card">
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+        <div class="card">
+            <div class="card-side card-side-front">F</div>
+            <div class="card-side card-side-back">B</div>
+        </div>
+
+    </div>
+    <script>
+        const $main = document.querySelector('main');
+        const $door = document.querySelector('.door');
+        const $inside = document.querySelector('.inside');
+        const $cardCont = document.querySelector('.cont-card');
+        $inside.addEventListener('click', toCard)
+        $door.addEventListener('click', ()=> {
+            $door.style.transform = "rotateY(-90deg)";
+        })
+        $door.addEventListener('click', toCard)
+        function toCard(){
+            setTimeout(() => {
+                $main.style.display = "none"
+                $cardCont.style.display = "grid";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

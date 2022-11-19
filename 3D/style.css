@@ -1,0 +1,86 @@
+body {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main {
+    position: relative;
+    perspective: 500px;
+    width: 200px;
+    height: 300px;
+}
+.inside {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+    cursor: pointer;
+}
+.door {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: brown;
+    border: 3px solid burlywood;
+    outline: 3px solid brown;
+    font-size: 1.6em;
+    color: burlywood;
+    transition: 0.5s;
+    transform-origin: right;
+    cursor: pointer;
+}
+.cont-card {
+    position: relative;
+    padding: 40px;
+    background-color: maroon;
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    perspective: 500px;
+}
+.card {
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 0 auto;
+    transform: rotateY(0deg);
+    transition: .7s;
+    transform-style: preserve-3d;
+}
+.card-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5em;
+    font-size: 1.5rem;
+    backface-visibility: hidden;
+}
+.card-side-front {
+    background: white;
+    color: black;
+    transform: rotateY(180deg);
+}
+.card-side-back {
+    background: black;
+    color: white;
+    
+    z-index: 1;
+}
+.card:hover {
+    transform: rotateY(-180deg);
+}
