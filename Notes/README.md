@@ -5,6 +5,8 @@
 - [이미지 스프라이트 사용하여 애니메이션 구현](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이미지-스프라이트-사용하여-애니메이션-구현)<br>
 - [3D](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#3D)<br>
 - [flex](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#flex)<br>
+- [DOM 제어](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#DOM-제어)<br>
+- [이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트)<br>
 
 
 # CSS Transform
@@ -267,3 +269,68 @@ animation-iteration-count: 2; /* 2번 실행 */
     - flex-grow: 1
 - flex item(자식)에게 주는 속성
 - item 들이 동일한 크기를 가지도록 함
+
+# DOM 제어
+
+## DOM 요소 생성
+
+```jsx
+const pEl = document.createElement('p');
+```
+
+### DOM 요소에 내용 넣기
+
+```jsx
+pEl.innerHTML = '<a href="#">하하</a>';
+```
+
+- 결과
+    
+    ```html
+    <p>
+    	<a href="#">하하</a>
+    </p>
+    ```
+    
+
+### appendChild
+
+```jsx
+부모요소.appendChild(자식이될요소)
+```
+
+### removeChild
+
+```jsx
+부모요소.removeChild(삭제할자식요소)
+```
+
+## DOM으로 클래스 제어
+
+### 클래스 추가
+
+```jsx
+요소.classList.add('special')
+```
+
+### 클래스 제거
+
+```jsx
+요소.classList.remove('special')
+```
+
+### 클래스 토글
+
+```jsx
+요소.classList.toggle('special')
+```
+
+# 이벤트
+
+### 이벤트 추가(클릭 이벤트)
+
+```jsx
+요소.addEventListener('click', function(){
+	요소.classList.add('special')
+})
+```
