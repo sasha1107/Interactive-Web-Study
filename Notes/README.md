@@ -327,10 +327,31 @@ pEl.innerHTML = '<a href="#">하하</a>';
 
 # 이벤트
 
-### 이벤트 추가(클릭 이벤트)
+## 이벤트 추가(클릭 이벤트)
 
 ```jsx
 요소.addEventListener('click', function(){
 	요소.classList.add('special')
 })
 ```
+
+## 이벤트 객체
+
+어떤 요소에 이벤트를 등록하면 첫번째 매개변수로 들어오는 객체, e라고 표기하는 것이 일반적이다.
+
+```jsx
+function clickHandler(e){
+	console.log(this)
+	console.log(e.currentTarget)
+	console.log(e.target)
+}
+
+characters.addEventListener.addEventListener('click', clickHandler)
+```
+
+- e
+    - 지금 발생하는 이벤트에 대한 정보들을 담고 있는 객체
+- e.currentTarget === this
+    - 이벤트가 등록되어 있는 객체
+- e.target
+    - 내가 딱 클릭(클릭 이벤트라면)한 요소
