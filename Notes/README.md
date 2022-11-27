@@ -1,10 +1,10 @@
 # 목차
-- [CSS Transform](#-CSS-Transform)<br>
-- [CSS Transition](#-CSS-Transition)<br>
-- [Animation](#-Animation)<br>
-- [이미지 스프라이트 사용하여 애니메이션 구현](#-이미지-스프라이트-사용하여-애니메이션-구현)<br>
-- [3D](#-3D)<br>
-- [flex](#-flex)<br>
+- [CSS Transform](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#css-transform)<br>
+- [CSS Transition](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#CSS-Transition)<br>
+- [Animation](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#-Animation)<br>
+- [이미지 스프라이트 사용하여 애니메이션 구현](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#-이미지-스프라이트-사용하여-애니메이션-구현)<br>
+- [3D](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#-3D)<br>
+- [flex](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#-flex)<br>
 
 
 # CSS Transform
