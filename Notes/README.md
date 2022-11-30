@@ -7,7 +7,7 @@
 - [flex](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#flex)<br>
 - [DOM 제어](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#DOM-제어)<br>
 - [이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트)<br>
-
+- [이벤트 위임](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트-위임)<br>
 
 # CSS Transform
 
@@ -355,3 +355,160 @@ characters.addEventListener.addEventListener('click', clickHandler)
     - 이벤트가 등록되어 있는 객체
 - e.target
     - 내가 딱 클릭(클릭 이벤트라면)한 요소
+
+
+
+# 이벤트 위임
+
+addEventListener 많이 다는 것은 성능상 좋지 않다.
+
+부모 요소 안에 여러 개의 자식 요소가 있고, 자식 요소들에게 동일한 이벤트를 달고 싶다면
+
+부모 요소에게 이벤트를 주고 위임 시키도록 한다. 
+
+## 예시 1) 이벤트 위임 전 코드
+
+```html
+<div class="stage">
+	<div class="ilbuni a"></div>
+	<div class="ilbuni b"></div>
+  <div class="ilbuni c"></div>
+</div>
+
+// 자식 요소 전부에게 이벤트를 달아준다. 
+<script>
+	document.querySelectorAll('ilbuni').addEventListener('click', handleClick)
+</script>
+```
+
+## 예시 1) 부모에게 이벤트를 주고 위임
+
+```html
+<div class="stage">
+        <div class="ilbuni a"></div>
+        <div class="ilbuni b"></div>
+        <div class="ilbuni c"></div>
+    </div>
+
+    <script>
+    (function() {
+        // 이벤트 위임
+        const stage = document.querySelector('.stage');
+
+        function clickHandler(e) {
+            if (e.target.classList.contains('ilbuni')) {
+                stage.removeChild(e.target);
+            }
+        }
+
+        stage.addEventListener('click', clickHandler);
+    })();
+    </script>
+```
+
+## 예시 2) CSS에서 제어
+
+- 자식 요소인데 이벤트를 안받고 싶을 때
+    - 예)버튼 안의 이미지 태그와 span 태그
+    
+    ```html
+    <div class="menu">
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 1</span>
+        </button>
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 2</span>
+        </button>
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 3</span>
+        </button>
+    </div>
+    ```
+    
+
+```css
+.icon{
+	pointer-events: none;
+}
+
+.btn-label {
+	pointer-events: none;
+}
+```
+
+## 예시 2) 자바스크립트에서 제어(dataset 객체)
+
+```html
+<div class="menu">
+    <button class="menu-btn" data-value="1">
+        <img class="icon" src="1.png" alt="">
+        <span class="btn-label">일분이 1</span>
+    </button>
+    <button class="menu-btn" data-value="2">
+        <img class="icon" src="1.png" alt="">
+        <span class="btn-label">일분이 2</span>
+    </button>
+    <button class="menu-btn" data-value="3">
+        <img class="icon" src="1.png" alt="">
+        <span class="btn-label">일분이 3</span>
+    </button>
+</div>
+<script>
+	const menu = document.querySelector('.menu');
+
+	function clickHandler(e) {
+    console.log(event.target.dataset)
+		console.log(event.target.dataset.value)
+	}
+
+	menu.addEventListener('click', clickHandler);
+</script>
+```
+
+- `data-`접두어로 시작하는 프로퍼티들을 모아 객체 형태로 보여줌
+    <img style="text-align: center" src="./img/dataset.png" width=40%>
+
+## 예시2) 최종 코드
+
+```html
+<body>
+    <div class="menu">
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 1</span>
+        </button>
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 2</span>
+        </button>
+        <button class="menu-btn">
+            <img class="icon" src="1.png" alt="">
+            <span class="btn-label">일분이 3</span>
+        </button>
+    </div>
+
+    <script>
+        // 이벤트 위임
+        const menu = document.querySelector('.menu');
+
+        function clickHandler(e) {
+            let elem = event.target;
+            // menu-btn이 나타날 때까지 체크
+            while (!elem.classList.contains('menu-btn')){
+                elem = elem.parentNode; // 부모를 타고 올라가며 탐색
+
+                if (elem.nodeName === 'body'){ // 더 이상 타고 올라가지 않도록 
+                    elem = null;
+                    return;
+                }
+            }
+            console.log(elem.dataset.value)
+        }
+
+        menu.addEventListener('click', clickHandler);
+    </script>
+</body>
+```
