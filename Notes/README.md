@@ -8,6 +8,7 @@
 - [DOM 제어](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#DOM-제어)<br>
 - [이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트)<br>
 - [이벤트 위임](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트-위임)<br>
+- [스크롤 이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#스크롤-이벤트)<br>
 
 # CSS Transform
 
@@ -512,3 +513,24 @@ addEventListener 많이 다는 것은 성능상 좋지 않다.
     </script>
 </body>
 ```
+
+# 스크롤 이벤트
+
+## 페이지의 스크롤 위치 구하기
+- y축 위치의 픽셀값
+```js
+window.pageYOffset
+```
+
+## 처음 위치 가져오기
+```js
+Elem객체.offsetTop
+```
+
+## element의 위치 가져오기
+```js
+Elem객체.getBoundingClientRect();
+```
+- 실행 결과
+![](./img/DOMRect.png)
+- x, y 속성 === left, top 동일한데 IE에서는 x,y를 지원하지 않으므로 ```left```와 ```top```속성을 사용할 것!
