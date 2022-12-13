@@ -9,6 +9,8 @@
 - [이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트)<br>
 - [이벤트 위임](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#이벤트-위임)<br>
 - [스크롤 이벤트](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#스크롤-이벤트)<br>
+- [setTimeout](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#setTimeout)<br>
+- [requestAnimationFrame](https://github.com/sasha1107/Interactive-Web-Study/blob/main/Notes/README.md#requestAnimationFrame)<br>
 
 # CSS Transform
 
@@ -534,3 +536,55 @@ Elem객체.getBoundingClientRect();
 - 실행 결과
 ![](./img/DOMRect.png)
 - x, y 속성 === left, top 동일한데 IE에서는 x,y를 지원하지 않으므로 ```left```와 ```top```속성을 사용할 것!
+
+
+# setTimeout
+```js
+setTimeout(function(){
+    console.log('3초 대기 후 실행')
+}, 3000);
+```
+## setTimeout의 반환값
+- 반환하는 ```timeoutId```는 양의 정수로서 ```setTimeout()```이 생성한 타이머를 식별할 때 사용
+- 이 값을 ```clearTimeout()```에 전달하면 타이머를 취소할 수 있다.
+
+## setInterval
+```js
+setInterval(function(){
+    console.log('3초마다 실행')
+}, 3000)
+```
+- 설정한 시간마다 반복
+- ```clearInterval()```로 타이머를 취소할 수 있다.
+- 컴퓨터가 처리할 능력이 안되면 제대로 처리하지 못할 수 있다.
+
+
+# requestAnimationFrame
+- 컴퓨터가 처리할 능력이 안되면 제대로 처리하지 못할 수 있다는 setInterval의 단점을 보완
+- IE 10부터 지원
+    - 지원 안할 경우 setInterval로 대체
+- 반복시킬 함수 안에 작성
+- 초당 60번을 목표로 빠르게 반복
+```js
+function sample(){
+    console.log("sample!");
+    requestAnimationFrame(sample);
+}
+
+sample();
+```
+
+- 버튼 누르면 취소
+```js
+let timeId;
+function sample(){
+    console.log("sample!");
+    timeId = requestAnimationFrame(sample);
+}
+
+sample();
+
+btmElem.addEventListener('click', function(){
+    cancelAnimationFrame(timeId);
+});
+```
