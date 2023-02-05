@@ -28,103 +28,82 @@ function Character(info) {
         + '</div>';
 
     document.querySelector('.stage').appendChild(this.mainElem);
-    // console.log(info)
 
-    // 클릭한 곳의 X좌표에 따라 스폰됨
     this.mainElem.style.left = info.xPos + '%';
-    
-    // 스크롤 중인지 아닌지 체크하는 변수
+    // 스크롤 중인지 아닌지
     this.scrollState = false;
-
-    // 바로 이전(마지막) 스크롤 위치
+    // 바로 이전 스크롤 위치
     this.lastScrollTop = 0;
-
-    // 이 객체의 속성으로도 등록
     this.xPos = info.xPos;
-
-    // 속도
     this.speed = info.speed;
-
-    // 방향(left/right)
     this.direction;
-
-    // 좌우 이동 중인지 아닌지를 판별
-    // 이동 중 => true, 아니면 => false
+    // 좌우 이동 중인지 아닌지
     this.runningState = false;
-
-    // request Animation Frame Id
     this.rafId;
-
     this.init();
-
 }
 
 Character.prototype = {
-    constructer: Character,
+    constructor: Character,
     init: function () {
         const self = this;
 
-        window.addEventListener("scroll", function () {
+        window.addEventListener('scroll', function () {
             clearTimeout(self.scrollState);
 
-            if (!self.scrollState){
-                self.mainElem.classList.add("running");
-                // console.log("running")
+            if (!self.scrollState) {
+                self.mainElem.classList.add('running');
             }
 
             self.scrollState = setTimeout(function () {
                 self.scrollState = false;
-                self.mainElem.classList.remove("running");
-                // console.log("stop")
+                self.mainElem.classList.remove('running');
             }, 500);
 
-            // console.log('lastScrollTop: ', self.lastScrollTop);
-            // console.log('scrollY', scrollY);
-
-            // 이전 스크롤 위치와 현재 스크롤 위치 비교
-            // => 커졌으면 스크롤 내린거, 작아졌으면 스크롤 올린거
-            if (self.lastScrollTop > scrollY) { // 스크롤 올림
-                self.mainElem.setAttribute("data-direction", "backward")
+            // 이전 스크롤 위치와 현재 스크롤 위치를 비교
+            if (self.lastScrollTop > pageYOffset) {
+                // 이전 스크롤 위치가 크다면: 스크롤 올림
+                self.mainElem.setAttribute('data-direction', 'backward');
+            } else {
+                // 현재 스크롤 위치가 크다면: 스크롤 내림
+                self.mainElem.setAttribute('data-direction', 'forward');
             }
-            else { // 스크롤 내림
-                self.mainElem.setAttribute("data-direction", "forward")
-            }
-            self.lastScrollTop = scrollY; 
-        })
 
-        window.addEventListener("keydown", function (e) {
+            self.lastScrollTop = pageYOffset;
+        });
+
+        window.addEventListener('keydown', function (e) {
             if (self.runningState) return;
 
-            console.log('keydown event 실행')
-            if (e.key == "ArrowLeft"){
-                self.mainElem.setAttribute("data-direction", "left");
-                self.direction = "left";
-                self.mainElem.classList.add("running");
-                self.run();
+            if (e.keyCode == 37) {
+                // 왼쪽
+                self.direction = 'left';
+                self.mainElem.setAttribute('data-direction', 'left');
+                self.mainElem.classList.add('running');
+                self.run(self);
+                // self.run(); // bind를 사용한 방법
+                self.runningState = true;
+            } else if (e.keyCode == 39) {
+                // 오른쪽
+                self.direction = 'right';
+                self.mainElem.setAttribute('data-direction', 'right');
+                self.mainElem.classList.add('running');
+                self.run(self);
+                // self.run(); // bind를 사용한 방법
                 self.runningState = true;
             }
-            else if (e.key == "ArrowRight"){
-                self.mainElem.setAttribute("data-direction", "right");
-                self.direction = "right";
-                self.mainElem.classList.add("running");
-                self.run();
-                self.runningState = true;
-            }
-        })
+        });
+
         window.addEventListener('keyup', function (e) {
-            self.mainElem.classList.remove("running");
+            self.mainElem.classList.remove('running');
             cancelAnimationFrame(self.rafId);
             self.runningState = false;
         });
-
     },
-
-    run: function (){
-        const self = this;
-        
-        if (self.direction == "left"){
+    run: function (self) {
+        if (self.direction == 'left') {
             self.xPos -= self.speed;
-        } else if (self.direction == "right"){
+        } else if (self.direction == 'right') {
             self.xPos += self.speed;
         }
 
@@ -132,11 +111,36 @@ Character.prototype = {
             self.xPos = 2;
         }
 
-        if (self.xPos > 88){
+        if (self.xPos > 88) {
             self.xPos = 88;
         }
-        self.mainElem.style.left = `${self.xPos}%`;
 
-        self.rafId = requestAnimationFrame(self.run.bind(self));
+        self.mainElem.style.left = self.xPos + '%';
+
+        self.rafId = requestAnimationFrame(function () {
+            self.run(self);
+        });
     }
-}
+    // bind를 사용한 방법
+    // run: function () {
+    //     const self = this;
+    //
+    //     if (self.direction == 'left') {
+    //         self.xPos -= self.speed;
+    //     } else if (self.direction == 'right') {
+    //         self.xPos += self.speed;
+    //     }
+    //
+    //     if (self.xPos < 2) {
+    //         self.xPos = 2;
+    //     }
+    //
+    //     if (self.xPos > 88) {
+    //         self.xPos = 88;
+    //     }
+    //
+    //     self.mainElem.style.left = self.xPos + '%';
+    //
+    //     self.rafId = requestAnimationFrame(self.run.bind(self));
+    // }
+};
